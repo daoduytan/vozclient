@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense } from "react";
+import { Router } from "@reach/router";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+import "./App.css";
+import { Spinner } from "./components/Ui";
+
+import StoriesContext from "./context/storiesContext";
+
+const Home = lazy(() => import("./components/Home"));
+const Story = lazy(() => import("./components/Story"));
+
+const App = () => (
+  <StoriesContext>
+    <Suspense fallback={<Spinner />}>
+      <Router>
+        <Home path="/" />
+        <Story path="story/:id/" />
+      </Router>
+    </Suspense>
+  </StoriesContext>
+);
 
 export default App;
