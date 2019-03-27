@@ -1,8 +1,10 @@
 import React, { memo } from "react";
+
 import { icons } from "../../assets";
 import Button from "./Button";
 import Icon from "./Icon";
-import styles from "./style.module.scss";
+
+import { PaginationWrap } from "./style";
 
 const Pagination = ({ onNext, onPrev, page, loading, totalPages }) => {
   const nextPage = () => onNext(page + 1);
@@ -10,7 +12,7 @@ const Pagination = ({ onNext, onPrev, page, loading, totalPages }) => {
   const prevPage = () => onPrev(page - 1);
 
   return (
-    <div className={styles.pagination}>
+    <PaginationWrap>
       <Button onClick={prevPage} disabled={page === 1 || loading}>
         <Icon icon={icons.left} />
       </Button>
@@ -18,7 +20,7 @@ const Pagination = ({ onNext, onPrev, page, loading, totalPages }) => {
       <Button onClick={nextPage} disabled={loading || page === totalPages}>
         <Icon icon={icons.right} />
       </Button>
-    </div>
+    </PaginationWrap>
   );
 };
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
-import axios from "axios";
 import { filter, toNumber } from "lodash";
 
+import api from "../../api";
 import { getPage } from "./ultil";
-import { Spinner, Header, Pagination, Icon, Container } from "../Ui";
 import { icons } from "../../assets";
+import { Spinner, Header, Pagination, Icon, Container } from "../Ui";
+import { BtnHeader } from "./style";
 import CardPost from "./CardPost";
 
 const Story = ({ id }) => {
@@ -18,12 +19,8 @@ const Story = ({ id }) => {
   async function getStory(page) {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/stories/story", {
-        params: {
-          id,
-          page: page || pageNumber
-        }
-      });
+      const data = { id, page: page || pageNumber };
+      const res = await api.getStory(data);
       const { story } = res.data;
 
       await setStory(story);
@@ -88,15 +85,15 @@ const Story = ({ id }) => {
       <Header
         leftContent={
           <Link to="/">
-            <div style={{ padding: "0 10px" }}>
+            <BtnHeader>
               <Icon icon={icons.leftArrow} size={25} />
-            </div>
+            </BtnHeader>
           </Link>
         }
         rightContent={
-          <div style={{ padding: "0 10px" }} onClick={saveBook}>
+          <BtnHeader onClick={saveBook}>
             <Icon icon={icons.bookmark} size={25} />
-          </div>
+          </BtnHeader>
         }
       >
         {title}

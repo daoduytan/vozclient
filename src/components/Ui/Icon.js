@@ -14,7 +14,7 @@ const Icon = ({ icon, size, color, style, hover }: Props) => (
   >
     <g transform="scale(1, 1)">
       {icon.map(o => (
-        <path key={o} d={o} />
+        <path key={o} d={o} fill={color || "#000"} />
       ))}
     </g>
   </svg>

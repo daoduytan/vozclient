@@ -1,9 +1,19 @@
 import Header from "./Header";
 import Spinner from "./Spinner";
 import Container from "./Container";
-import Item from "./Item";
 import Pagination from "./Pagination";
 import Icon from "./Icon";
 import Button from "./Button";
+import HocDrawer from "./hocDrawer";
+import Logo from "./Logo";
 
-export { Header, Spinner, Container, Item, Pagination, Icon, Button };
+export {
+  Logo,
+  Header,
+  Spinner,
+  Container,
+  Pagination,
+  Icon,
+  Button,
+  HocDrawer
+};

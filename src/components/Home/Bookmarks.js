@@ -2,10 +2,12 @@ import React, { useState, useEffect, memo } from "react";
 import { filter } from "lodash";
 import { navigate } from "@reach/router";
 
-import { icons } from "../../assets";
-import { Icon } from "../Ui";
+import { BookmarksWrap } from "./style";
+import ItemBookmark from "./ItemBookmark";
+import NoBookmark from "./NoBookmark";
+import { HocDrawer } from "../Ui";
 
-const Bookmarks = () => {
+const Bookmarks = ({ title }) => {
   const [bookmarks, loadBookmarks] = useState([]);
 
   async function getBookmarks() {
@@ -34,64 +36,34 @@ const Bookmarks = () => {
     [bookmarks]
   );
 
-  if (bookmarks.length === 0)
+  const renderBookmarks = () => {
+    if (bookmarks.length === 0) return <NoBookmark />;
+
     return (
-      <div
-        style={{
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          textAlign: "center",
-          justifyContent: "center"
-        }}
-      >
-        Chưa có bookmark nào
+      <div style={{}}>
+        {bookmarks.map(b => (
+          <ItemBookmark
+            key={b.id}
+            bookmark={b}
+            redirect={redirect}
+            removeBookmark={removeBookmark}
+          />
+        ))}
       </div>
     );
+  };
 
   return (
-    <div>
-      {bookmarks.map(b => (
-        <div
-          key={b.id}
-          style={{
-            borderBottom: "1px solid #eee",
-            fontSize: 12,
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          <div
-            style={{
-              margin: 0,
-              padding: "10px",
-              display: "flex",
-              flex: 1,
-              alignItems: "flex-start"
-            }}
-            onClick={() => redirect(b)}
-          >
-            <div style={{ marginRight: 10 }}>
-              <Icon icon={icons.book} />
-            </div>
-            <div>
-              <div>
-                <div>
-                  <strong>{b.title}</strong>
-                </div>
-
-                <small>Trang: {b.page}</small>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ padding: 10 }} onClick={() => removeBookmark(b)}>
-            <Icon icon={icons.delete} />
-          </div>
+    <HocDrawer>
+      <BookmarksWrap>
+        <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
+          {renderBookmarks()}
         </div>
-      ))}
-    </div>
+      </BookmarksWrap>
+    </HocDrawer>
   );
 };
+
+Bookmarks.defaultProps = { title: "Bookmarks" };
 
 export default memo(Bookmarks);

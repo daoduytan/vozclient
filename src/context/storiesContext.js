@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
+import api from "../api";
 
 const storiesContext = {
   stories: [],
@@ -17,10 +18,9 @@ const StoriesContext = ({ children }) => {
   async function loadData(page) {
     try {
       setLoading(true);
-      // const pageCache = await localStorage.getItem("page");
-      const res = await axios.get("http://localhost:5000/stories", {
-        params: { page: page || 1 }
-      });
+      const pageCache = await localStorage.getItem("page");
+      const data = { page: pageCache || page || 1 };
+      const res = await api.getAllStories(data);
       const { stories } = res.data;
       await loadStories(stories);
       await setLoading(false);

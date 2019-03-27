@@ -1,11 +1,9 @@
 import React, { memo } from "react";
 
-import styles from "./style.module.scss";
+import { ButtonWrap } from "./style";
 
 const Button = ({ children, ...rest }) => (
-  <button {...rest} className={styles.button}>
-    {children}
-  </button>
+  <ButtonWrap {...rest}>{children}</ButtonWrap>
 );
 
 export default memo(Button);

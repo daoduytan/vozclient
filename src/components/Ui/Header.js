@@ -1,12 +1,12 @@
 import React, { memo } from "react";
-import styles from "./style.module.scss";
+import { HeaderStyle, HeaderTitleStyle } from "./style";
 
 const Header = ({ leftContent, rightContent, children }) => (
-  <div className={styles.header}>
-    {leftContent && <div>{leftContent}</div>}
-    <div className={styles.titleHeader}>{children}</div>
-    {rightContent && <div>{rightContent}</div>}
-  </div>
+  <HeaderStyle>
+    {leftContent && <div className="left">{leftContent}</div>}
+    <HeaderTitleStyle>{children}</HeaderTitleStyle>
+    {rightContent && <div className="right">{rightContent}</div>}
+  </HeaderStyle>
 );
 
 export default memo(Header);

@@ -1,8 +1,7 @@
 import React, { memo } from "react";
-import styles from "./style.module.scss";
 
-const Container = ({ children }) => (
-  <div className={styles.container}>{children}</div>
-);
+import { ContainerWrap } from "./style";
+
+const Container = ({ children }) => <ContainerWrap>{children}</ContainerWrap>;
 
 export default memo(Container);
